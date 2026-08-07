@@ -65,3 +65,15 @@ Detailed documentation will be added as each project phase is implemented and ve
 ## License
 
 This project is licensed under the MIT License. See `LICENSE` for details.
+
+## Project Evidence
+
+Verified milestone screenshots are maintained in the [`screenshots/`](screenshots/) directory.
+
+Current evidence includes:
+
+- Phase 0 environment audit
+- Phase 0 Docker prerequisite audit
+- Phase 1 GitHub repository creation
+
+See [`screenshots/README.md`](screenshots/README.md) for the complete evidence index and screenshot policy.

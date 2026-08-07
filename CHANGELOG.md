@@ -27,3 +27,12 @@ The project follows Semantic Versioning for release tags.
 - Security scanning
 - Rollback documentation
 - Version `v1.0.0` release
+
+### Documentation
+
+- Added organized screenshot evidence directories
+- Added Phase 0 environment audit evidence
+- Added Phase 0 Docker prerequisite audit evidence
+- Added Phase 1 GitHub repository creation evidence
+- Added screenshot evidence index and privacy policy
+- Linked project evidence from the main README
