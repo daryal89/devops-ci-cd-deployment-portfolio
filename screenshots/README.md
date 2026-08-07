@@ -80,3 +80,31 @@ Demonstrates:
 - Manual review performed before merge
 
 **Status:** Verified
+
+## Phase 2 — Minimal Express Application
+
+### 01 — Local API Running
+
+**File:** [`phase-02-application/01-local-api-running.png`](phase-02-application/01-local-api-running.png)
+
+Demonstrates:
+
+- Local Node.js and Express API running successfully
+- `GET /` returning HTTP `200 OK`
+- JSON response confirming application status
+- `X-Powered-By` response header disabled
+
+**Status:** Verified
+
+### 02 — Graceful Shutdown
+
+**File:** [`phase-02-application/02-graceful-shutdown.png`](phase-02-application/02-graceful-shutdown.png)
+
+Demonstrates:
+
+- Application listening on port `3000`
+- `SIGINT` shutdown signal handling
+- Graceful HTTP server shutdown
+- Clean server termination
+
+**Status:** Verified
