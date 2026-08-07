@@ -2,7 +2,7 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In development — Phase 1 repository initialization.
+> **Project Status:** In development - Phase 2 minimal Express application.
 
 ## Project Objective
 
@@ -40,8 +40,8 @@ Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker I
 | Area | Status |
 | --- | --- |
 | Environment audit | Completed |
-| Repository initialization | In progress |
-| Node.js / Express application | Not started |
+| Repository initialization | Completed |
+| Node.js / Express application | In progress |
 | Automated testing | Not started |
 | Docker containerization | Not started |
 | GitHub Actions CI | Not started |
@@ -75,5 +75,8 @@ Current evidence includes:
 - Phase 0 environment audit
 - Phase 0 Docker prerequisite audit
 - Phase 1 GitHub repository creation
+- Phase 1 pull request review
+- Phase 2 local API execution
+- Phase 2 graceful shutdown
 
 See [`screenshots/README.md`](screenshots/README.md) for the complete evidence index and screenshot policy.

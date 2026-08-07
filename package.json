@@ -1,0 +1,36 @@
+{
+  "name": "devops-ci-cd-deployment-portfolio",
+  "version": "0.1.0",
+  "description": "Production-style DevOps CI/CD portfolio demonstrating Git, automated testing, Docker, GitHub Actions, container registry, cloud deployment, security, and release management.",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daryal89/devops-ci-cd-deployment-portfolio.git"
+  },
+  "keywords": [
+    "devops",
+    "ci-cd",
+    "docker",
+    "github-actions",
+    "nodejs",
+    "express"
+  ],
+  "author": "Dhruba Aryal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daryal89/devops-ci-cd-deployment-portfolio/issues"
+  },
+  "homepage": "https://github.com/daryal89/devops-ci-cd-deployment-portfolio#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

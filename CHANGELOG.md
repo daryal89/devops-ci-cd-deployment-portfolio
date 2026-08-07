@@ -36,3 +36,18 @@ The project follows Semantic Versioning for release tags.
 - Added Phase 1 GitHub repository creation evidence
 - Added screenshot evidence index and privacy policy
 - Linked project evidence from the main README
+
+### Phase 2 Application
+
+- Initialized the Node.js project configuration
+- Added Express as the application dependency
+- Added a minimal Express application in `src/app.js`
+- Added server startup logic in `src/server.js`
+- Added configurable `PORT` support with a default of `3000`
+- Added JSON request parsing
+- Disabled the default `X-Powered-By` response header
+- Added `GET /` returning HTTP `200` with JSON application status
+- Added graceful shutdown handling for `SIGINT` and `SIGTERM`
+- Verified local API execution with `curl`
+- Verified graceful shutdown behavior
+- Added Phase 2 runtime evidence screenshots

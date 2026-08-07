@@ -80,3 +80,47 @@ Demonstrates:
 - Manual review performed before merge
 
 **Status:** Verified
+
+## Phase 2 — Minimal Express Application
+
+### 01 — Local API Running
+
+**File:** [`phase-02-application/01-local-api-running.png`](phase-02-application/01-local-api-running.png)
+
+Demonstrates:
+
+- Local Node.js and Express API running successfully
+- `GET /` returning HTTP `200 OK`
+- JSON response confirming application status
+- `X-Powered-By` response header disabled
+
+**Status:** Verified
+
+### 02 — Graceful Shutdown
+
+**File:** [`phase-02-application/02-graceful-shutdown.png`](phase-02-application/02-graceful-shutdown.png)
+
+Demonstrates:
+
+- Application listening on port `3000`
+- `SIGINT` shutdown signal handling
+- Graceful HTTP server shutdown
+- Clean server termination
+
+**Status:** Verified
+
+### 03 — Phase 2 Pull Request Review
+
+**File:** [`phase-02-application/03-phase-2-pull-request-review.png`](phase-02-application/03-phase-2-pull-request-review.png)
+
+Demonstrates:
+
+- Open Phase 2 pull request from `feat/phase-2-express-api` into `main`
+- One feature-branch commit
+- Nine files changed
+- Documented verification and security review
+- Manual pull request review before merge
+- No conflicts with the base branch
+- Pull request ready to merge
+
+**Status:** Verified
