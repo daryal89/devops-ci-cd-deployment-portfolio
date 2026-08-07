@@ -65,3 +65,18 @@ Screenshots included in this repository must not expose:
 - Unrelated browser tabs or notifications
 
 Additional evidence will be added only after the corresponding project milestone has been completed and verified.
+
+### 02 — Pull Request Review
+
+**File:** [`phase-01-repository-setup/02-pull-request-review.png`](phase-01-repository-setup/02-pull-request-review.png)
+
+Demonstrates:
+
+- Open pull request from `chore/phase-1-repository-setup` into `main`
+- One feature-branch commit
+- Six files changed
+- Documented verification and security review
+- No merge conflicts with the base branch
+- Manual review performed before merge
+
+**Status:** Verified
