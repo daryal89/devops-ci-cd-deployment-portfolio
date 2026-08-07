@@ -108,3 +108,19 @@ Demonstrates:
 - Clean server termination
 
 **Status:** Verified
+
+### 03 — Phase 2 Pull Request Review
+
+**File:** [`phase-02-application/03-phase-2-pull-request-review.png`](phase-02-application/03-phase-2-pull-request-review.png)
+
+Demonstrates:
+
+- Open Phase 2 pull request from `feat/phase-2-express-api` into `main`
+- One feature-branch commit
+- Nine files changed
+- Documented verification and security review
+- Manual pull request review before merge
+- No conflicts with the base branch
+- Pull request ready to merge
+
+**Status:** Verified
