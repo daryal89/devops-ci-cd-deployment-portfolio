@@ -2,13 +2,13 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In development - Phase 2 minimal Express application.
+> **Project Status:** In development - Phase 3 testing, linting, and operational endpoints completed.
 
 ## Project Objective
 
 This project demonstrates practical DevOps skills through source control, automated testing, containerization, continuous integration, container-image publishing, cloud deployment, security practices, troubleshooting, validation, and release management.
 
-## Planned Application Endpoints
+## Application Endpoints
 
 - `GET /`
 - `GET /health`
@@ -41,8 +41,8 @@ Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker I
 | --- | --- |
 | Environment audit | Completed |
 | Repository initialization | Completed |
-| Node.js / Express application | In progress |
-| Automated testing | Not started |
+| Node.js / Express application | Completed |
+| Automated testing | Completed |
 | Docker containerization | Not started |
 | GitHub Actions CI | Not started |
 | Container registry publishing | Not started |
@@ -78,5 +78,7 @@ Current evidence includes:
 - Phase 1 pull request review
 - Phase 2 local API execution
 - Phase 2 graceful shutdown
+- Phase 3 operational endpoints
+- Phase 3 automated tests and linting
 
 See [`screenshots/README.md`](screenshots/README.md) for the complete evidence index and screenshot policy.
