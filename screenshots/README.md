@@ -173,3 +173,55 @@ Demonstrates:
 - Manual review performed before merge
 
 **Status:** Verified
+
+## Phase 4 — Docker Containerization
+
+### 01 — Docker Image Security
+
+**File:** [`phase-04-docker/01-docker-image-security.png`](phase-04-docker/01-docker-image-security.png)
+
+Demonstrates:
+
+- Production Docker image configuration
+- Non-root `node` runtime user
+- Application working directory `/app`
+- Application source files included in the runtime image
+- Production dependency installation
+- Development dependencies excluded
+- `NODE_ENV=production`
+- Container port `3000`
+
+**Status:** Verified
+
+### 02 — Docker Endpoints Working
+
+**File:** [`phase-04-docker/02-docker-endpoints-working.png`](phase-04-docker/02-docker-endpoints-working.png)
+
+Demonstrates:
+
+- Containerized `GET /` returning HTTP `200`
+- Containerized `GET /health` returning HTTP `200`
+- Containerized `GET /version` returning HTTP `200`
+- Containerized `GET /api/status` returning HTTP `200`
+- Unknown route returning structured HTTP `404`
+- Docker runtime environment reported as `production`
+- Docker build identifier returned as `docker-local`
+- `X-Powered-By` header remains disabled
+
+**Status:** Verified
+
+### 03 — Docker Health and Lifecycle
+
+**File:** [`phase-04-docker/03-docker-health-lifecycle.png`](phase-04-docker/03-docker-health-lifecycle.png)
+
+Demonstrates:
+
+- Docker container health status reported as `healthy`
+- Repeated successful health-check exit codes
+- `/health` returning HTTP `200`
+- Docker graceful stop behavior
+- Application receiving `SIGTERM`
+- HTTP server shutting down cleanly
+- Container exiting successfully with exit code `0`
+
+**Status:** Verified
