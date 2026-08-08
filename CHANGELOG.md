@@ -69,3 +69,25 @@ The project follows Semantic Versioning for release tags.
 - Verified dependency audit reports zero vulnerabilities
 - Verified all operational endpoints locally
 - Added Phase 3 endpoint and quality-check evidence screenshots
+
+### Phase 4 Docker Containerization
+
+- Installed and configured Docker Desktop with the WSL2 backend
+- Enabled Docker integration with Ubuntu 24.04
+- Verified Docker CLI, Docker Compose, Docker Engine, and `hello-world`
+- Added `.dockerignore` to reduce build context and exclude sensitive/unnecessary files
+- Added a production Dockerfile using Node.js 24 Alpine
+- Added reproducible production dependency installation with `npm ci --omit=dev`
+- Configured the container to run as the non-root `node` user
+- Configured `NODE_ENV=production` and container port `3000`
+- Added Docker health checking using the existing `/health` endpoint
+- Built and inspected the local Docker image
+- Verified development dependencies are excluded from the runtime image
+- Verified all API endpoints through the running container
+- Verified Docker-specific version, build, and production environment values
+- Verified `X-Powered-By` remains disabled inside the container
+- Verified Docker health status becomes `healthy`
+- Verified container restart behavior and post-restart API availability
+- Verified graceful `SIGTERM` handling and clean HTTP server shutdown
+- Verified container exits successfully with exit code `0`
+- Added Phase 4 Docker security, endpoint, health, and lifecycle evidence
