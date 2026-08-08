@@ -225,3 +225,20 @@ Demonstrates:
 - Container exiting successfully with exit code `0`
 
 **Status:** Verified
+
+### 04 — Phase 4 Pull Request Review
+
+**File:** [`phase-04-docker/04-phase-4-pull-request-review.png`](phase-04-docker/04-phase-4-pull-request-review.png)
+
+Demonstrates:
+
+- Open Phase 4 pull request from `feat/phase-4-docker-containerization` into `main`
+- One feature-branch commit
+- Eight files changed
+- Docker containerization scope documented
+- Docker verification and lifecycle validation documented
+- Containerized endpoint verification documented
+- Pull request confirmed ready to merge
+- Manual pull request review performed before merge
+
+**Status:** Verified
