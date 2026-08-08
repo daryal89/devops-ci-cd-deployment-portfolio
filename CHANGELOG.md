@@ -51,3 +51,21 @@ The project follows Semantic Versioning for release tags.
 - Verified local API execution with `curl`
 - Verified graceful shutdown behavior
 - Added Phase 2 runtime evidence screenshots
+
+### Phase 3 Quality and Operational Endpoints
+
+- Added `GET /health` health-check endpoint
+- Added `GET /version` with application version and build identifier
+- Added `GET /api/status` with environment, version, build, and Node.js runtime information
+- Added structured JSON `404` responses for unknown routes
+- Added centralized application error-handling middleware
+- Added ESLint configuration and `npm run lint`
+- Added Supertest for API endpoint testing
+- Added Node.js built-in automated test runner
+- Added five automated endpoint tests
+- Added `npm test` and `npm run check` quality scripts
+- Verified all five automated tests pass with zero failures
+- Verified ESLint passes with zero errors
+- Verified dependency audit reports zero vulnerabilities
+- Verified all operational endpoints locally
+- Added Phase 3 endpoint and quality-check evidence screenshots
