@@ -2,7 +2,7 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In development - Phase 4 Docker containerization completed.
+> **Project Status:** In development — Phase 5 GitHub Actions continuous integration implemented and verified.
 
 ## Project Objective
 
@@ -17,7 +17,7 @@ This project demonstrates practical DevOps skills through source control, automa
 
 These endpoints will provide application availability, health, environment, version, status, and build information.
 
-## Planned Technology Stack
+## Technology Stack
 
 - Node.js
 - Express
@@ -36,18 +36,44 @@ These endpoints will provide application availability, health, environment, vers
 Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker Image → GitHub Container Registry → Cloud Deployment → Smoke Tests
 
 ## Current Progress
-
 | Area | Status |
 | --- | --- |
 | Environment audit | Completed |
 | Repository initialization | Completed |
 | Node.js / Express application | Completed |
-| Automated testing | Completed |
+| Automated testing and linting | Completed |
 | Docker containerization | Completed |
-| GitHub Actions CI | Not started |
+| GitHub Actions CI | Completed |
 | Container registry publishing | Not started |
 | Cloud deployment | Not started |
+| Continuous deployment | Not started |
 | Release v1.0.0 | Not started |
+
+## Continuous Integration
+
+GitHub Actions provides automated validation for pull requests targeting `main` and for pushes to `main`.
+
+The CI workflow uses two independent jobs:
+
+### Application Quality
+
+- Checks out the repository
+- Configures Node.js 24 with npm dependency caching
+- Installs dependencies reproducibly with `npm ci`
+- Runs ESLint as a blocking quality gate
+- Runs the automated API test suite
+- Runs `npm audit` as a blocking dependency-security gate
+
+### Docker Build
+
+- Checks out the repository
+- Verifies the Docker runtime
+- Validates the Dockerfile with `docker build --check .`
+- Builds the application Docker image
+
+The workflow uses read-only repository permissions with `contents: read` and concurrency control to cancel obsolete workflow runs.
+
+Phase 5 validation confirmed both `Application Quality` and `Docker Build` complete successfully with no failing or pending checks.
 
 ## Security Principles
 
@@ -56,11 +82,12 @@ Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker I
 - Safe example configuration stored in `.env.example`
 - Credentials will use approved secret-management mechanisms
 - Screenshots will be reviewed before publication
-- Security checks will be incorporated into CI/CD
+- Dependency security auditing is enforced in CI with `npm audit`
+- Additional security scanning will be added in later phases
 
 ## Documentation
 
-Detailed documentation will be added as each project phase is implemented and verified.
+Project documentation and evidence are updated as each implementation phase is completed and verified. The repository includes milestone screenshots, validation results, and an indexed evidence trail for the implemented DevOps workflow.
 
 ## License
 
@@ -83,5 +110,8 @@ Current evidence includes:
 - Phase 4 Docker image security verification
 - Phase 4 containerized endpoint validation
 - Phase 4 Docker health and lifecycle validation
+- Phase 5 GitHub Actions pull request validation
+- Phase 5 application-quality CI validation
+- Phase 5 Docker-build CI validation
 
 See [`screenshots/README.md`](screenshots/README.md) for the complete evidence index and screenshot policy.

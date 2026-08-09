@@ -242,3 +242,57 @@ Demonstrates:
 - Manual pull request review performed before merge
 
 **Status:** Verified
+
+## Phase 5 — GitHub Actions Continuous Integration
+
+### 01 — Phase 5 Pull Request Overview
+
+**File:** [`phase-05-github-actions-ci/01-phase-5-pull-request-overview.png`](phase-05-github-actions-ci/01-phase-5-pull-request-overview.png)
+
+Demonstrates:
+
+- Open Phase 5 pull request from `feat/phase-5-github-actions-ci` into `main`
+- Two feature-branch commits included in the pull request
+- Initial GitHub Actions continuous integration scope documented
+- Application-quality and Docker-build validation responsibilities documented
+- Read-only repository permissions documented
+- Blocking CI quality, security, and build gates documented
+- Local pre-publish validation results documented
+- Pull request confirmed ready to merge after successful validation
+
+**Status:** Verified
+
+### 02 — Application Quality Job Passed
+
+**File:** [`phase-05-github-actions-ci/02-application-quality-job-passed.png`](phase-05-github-actions-ci/02-application-quality-job-passed.png)
+
+Demonstrates:
+
+- GitHub Actions `Application Quality` job completed successfully
+- Repository checkout completed successfully
+- Node.js 24 environment configured successfully
+- npm dependencies installed successfully
+- ESLint quality validation passed
+- Automated API test suite passed
+- npm dependency security audit passed
+- All application-quality CI steps completed without failure
+- `Docker Build` job also reported successful in the workflow run
+
+**Status:** Verified
+
+### 03 — Docker Build and CI Checks Passed
+
+**File:** [`phase-05-github-actions-ci/03-docker-build-ci-checks-passed.png`](phase-05-github-actions-ci/03-docker-build-ci-checks-passed.png)
+
+Demonstrates:
+
+- GitHub Actions CI workflow completed successfully
+- `Application Quality` job passed
+- `Docker Build` job passed
+- Docker runtime verification completed successfully
+- Dockerfile validation completed successfully
+- Application Docker image built successfully
+- All Docker CI job steps completed without failure
+- Both independent CI jobs reached a successful final state
+
+**Status:** Verified

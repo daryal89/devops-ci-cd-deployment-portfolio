@@ -17,12 +17,9 @@ The project follows Semantic Versioning for release tags.
 
 ### Planned
 
-- Node.js and Express application
-- Automated linting and testing
-- Docker containerization
-- GitHub Actions CI/CD
 - GitHub Container Registry publishing
 - Cloud deployment
+- Continuous deployment automation
 - Post-deployment smoke testing
 - Security scanning
 - Rollback documentation
@@ -91,3 +88,26 @@ The project follows Semantic Versioning for release tags.
 - Verified graceful `SIGTERM` handling and clean HTTP server shutdown
 - Verified container exits successfully with exit code `0`
 - Added Phase 4 Docker security, endpoint, health, and lifecycle evidence
+
+### Phase 5 GitHub Actions Continuous Integration
+
+- Added `.github/workflows/ci.yml` for automated continuous integration
+- Configured CI to run for pull requests targeting `main`
+- Configured CI to run for pushes to `main`
+- Added read-only repository permissions with `contents: read`
+- Added concurrency control to cancel obsolete workflow runs
+- Added an independent `Application Quality` CI job
+- Configured Node.js 24 with npm dependency caching
+- Added reproducible dependency installation with `npm ci`
+- Added blocking ESLint validation with `npm run lint`
+- Added blocking automated API testing with `npm test`
+- Added blocking dependency security auditing with `npm audit`
+- Added an independent `Docker Build` CI job
+- Added Docker runtime verification
+- Added Dockerfile validation with `docker build --check .`
+- Added automated Docker image build validation
+- Updated `actions/checkout` and `actions/setup-node` to version 7
+- Verified `Application Quality` passes successfully in GitHub Actions
+- Verified `Docker Build` passes successfully in GitHub Actions
+- Verified the Phase 5 pull request reaches a successful CI state with zero failing or pending checks
+- Added Phase 5 pull request, application-quality, and Docker-build evidence screenshots
