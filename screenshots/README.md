@@ -296,3 +296,71 @@ Demonstrates:
 - Both independent CI jobs reached a successful final state
 
 **Status:** Verified
+
+## Phase 6 — GitHub Container Registry Publishing
+
+### 01 — Pull Request Publication Gate
+
+**File:** [`phase-06-ghcr-publishing/01-pr-publication-gate.png`](phase-06-ghcr-publishing/01-pr-publication-gate.png)
+
+Demonstrates:
+
+- GitHub Actions workflow triggered by a pull request targeting `main`
+- `Application Quality` completed successfully
+- `Docker Build` completed successfully
+- `Publish Container Image` was intentionally skipped
+- Container publication is prevented during pull-request validation
+- Publishing remains gated behind successful validation and a push to `main`
+- Pull-request CI completed successfully without creating a GHCR package
+
+**Status:** Verified
+
+### 02 — Main GHCR Publication Succeeded
+
+**File:** [`phase-06-ghcr-publishing/02-main-ghcr-publish-success.png`](phase-06-ghcr-publishing/02-main-ghcr-publish-success.png)
+
+Demonstrates:
+
+- GitHub Actions workflow triggered by a push to `main`
+- `Application Quality` completed successfully
+- `Docker Build` completed successfully
+- `Publish Container Image` completed successfully
+- Container publishing occurred only after both validation jobs succeeded
+- The post-merge workflow completed successfully
+- Docker build output was produced during the publication workflow
+
+**Status:** Verified
+
+### 03 — GHCR Package and Traceability Tags
+
+**File:** [`phase-06-ghcr-publishing/03-ghcr-package-tags.png`](phase-06-ghcr-publishing/03-ghcr-package-tags.png)
+
+Demonstrates:
+
+- Published GHCR package `devops-ci-cd-deployment-portfolio`
+- Public container-package availability
+- Published `main` tag for the latest verified `main` image
+- Published `sha-fcb6e50` tag for source-commit traceability
+- GHCR pull command for the published container image
+- Package association with the source repository
+- Successful creation of a tagged container artifact in GitHub Container Registry
+
+**Status:** Verified
+
+### 04 — GHCR Pull and Runtime Verification
+
+**File:** [`phase-06-ghcr-publishing/04-ghcr-pull-runtime-verification.png`](phase-06-ghcr-publishing/04-ghcr-pull-runtime-verification.png)
+
+Demonstrates:
+
+- Local GHCR image absence verified before the registry pull
+- Public `main` image pulled directly from GitHub Container Registry
+- Published image SHA-256 digest verified
+- Container configured to execute as the non-root `node` user
+- Application working directory verified as `/app`
+- Published container reached Docker `healthy` status
+- `/health` endpoint returned `{"status":"healthy"}`
+- Runtime identity verified as `uid=1000(node)`
+- Published GHCR container remained running and healthy after startup
+
+**Status:** Verified

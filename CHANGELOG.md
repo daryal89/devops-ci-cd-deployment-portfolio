@@ -17,7 +17,6 @@ The project follows Semantic Versioning for release tags.
 
 ### Planned
 
-- GitHub Container Registry publishing
 - Cloud deployment
 - Continuous deployment automation
 - Post-deployment smoke testing
@@ -111,3 +110,33 @@ The project follows Semantic Versioning for release tags.
 - Verified `Docker Build` passes successfully in GitHub Actions
 - Verified the Phase 5 pull request reaches a successful CI state with zero failing or pending checks
 - Added Phase 5 pull request, application-quality, and Docker-build evidence screenshots
+
+### Phase 6 GitHub Container Registry Publishing
+
+- Extended `.github/workflows/ci.yml` with a gated `Publish Container Image` job
+- Configured container publication to depend on both `Application Quality` and `Docker Build`
+- Restricted container publishing to `push` events on the `main` branch
+- Verified pull-request validation skips container publication
+- Preserved global workflow permissions as `contents: read`
+- Granted `packages: write` only to the container publishing job
+- Configured GHCR authentication with the repository-provided `GITHUB_TOKEN`
+- Configured GitHub Container Registry as the publishing destination
+- Published container images to `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio`
+- Added `main` as the moving tag for the latest successfully published `main` image
+- Added `sha-*` tags for source-commit traceability
+- Intentionally omitted the Docker `latest` tag
+- Added Docker Buildx support for container publishing
+- Added Docker metadata generation for container tags and OCI labels
+- Added automated Docker image build and registry push with `docker/build-push-action`
+- Verified `Application Quality` and `Docker Build` succeed during pull-request validation
+- Verified `Publish Container Image` is skipped during pull-request validation
+- Verified no GHCR package is created by pull-request validation
+- Verified all three workflow jobs succeed after merge to `main`
+- Verified the public GHCR package is associated with the source repository
+- Verified published `main` and `sha-*` image tags
+- Verified the published image has a SHA-256 container digest
+- Pulled the published `main` image directly from GHCR for independent runtime validation
+- Verified the published container runs as the non-root `node` user
+- Verified the published container reaches Docker `healthy` status
+- Verified the published `/health` endpoint returns `{"status":"healthy"}`
+- Added Phase 6 publication-gate, GHCR workflow, package-tag, and runtime evidence screenshots
