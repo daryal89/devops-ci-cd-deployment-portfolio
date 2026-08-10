@@ -2,7 +2,7 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In development — Phase 5 GitHub Actions continuous integration implemented and verified.
+> **Project Status:** In development — Phase 6 GitHub Container Registry publishing implemented and verified.
 
 ## Project Objective
 
@@ -44,7 +44,7 @@ Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker I
 | Automated testing and linting | Completed |
 | Docker containerization | Completed |
 | GitHub Actions CI | Completed |
-| Container registry publishing | Not started |
+| Container registry publishing | Completed |
 | Cloud deployment | Not started |
 | Continuous deployment | Not started |
 | Release v1.0.0 | Not started |
@@ -75,12 +75,39 @@ The workflow uses read-only repository permissions with `contents: read` and con
 
 Phase 5 validation confirmed both `Application Quality` and `Docker Build` complete successfully with no failing or pending checks.
 
+## Container Registry Publishing
+
+Validated container images are published automatically to GitHub Container Registry (GHCR) after successful CI validation on `main`.
+
+The publishing workflow:
+
+- Depends on both `Application Quality` and `Docker Build`
+- Runs only for `push` events on the `main` branch
+- Skips container publication during pull-request validation
+- Uses the repository-provided `GITHUB_TOKEN` for GHCR authentication
+- Grants `packages: write` only to the publishing job
+- Preserves global repository permissions as `contents: read`
+- Publishes to `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio`
+- Publishes a `main` tag for the latest successfully verified `main` image
+- Publishes a `sha-*` tag for source-commit traceability
+- Intentionally does not publish a Docker `latest` tag
+
+The published image was independently pulled from GHCR and verified to:
+
+- Run as the non-root `node` user
+- Use `/app` as its working directory
+- Reach Docker `healthy` status
+- Return `{"status":"healthy"}` from `/health`
+- Preserve a SHA-256 container-image digest
+
 ## Security Principles
 
 - No real secrets committed to Git
 - Local environment files excluded through `.gitignore`
 - Safe example configuration stored in `.env.example`
-- Credentials will use approved secret-management mechanisms
+- GHCR authentication uses the repository-provided `GITHUB_TOKEN`
+- Registry publishing receives `packages: write` only within the publishing job
+- No Personal Access Token or custom registry credential is required for CI publishing
 - Screenshots will be reviewed before publication
 - Dependency security auditing is enforced in CI with `npm audit`
 - Additional security scanning will be added in later phases
@@ -113,5 +140,9 @@ Current evidence includes:
 - Phase 5 GitHub Actions pull request validation
 - Phase 5 application-quality CI validation
 - Phase 5 Docker-build CI validation
+- Phase 6 pull-request container-publication gate validation
+- Phase 6 successful GHCR publication from `main`
+- Phase 6 GHCR package and image-tag verification
+- Phase 6 published-image pull and runtime verification
 
 See [`screenshots/README.md`](screenshots/README.md) for the complete evidence index and screenshot policy.
