@@ -304,7 +304,7 @@ jobs:
           ACTUAL_BUILD_ID="$(az containerapp show \
             --name "$CONTAINER_APP" \
             --resource-group "$RESOURCE_GROUP" \
-            --query 'properties.template.containers[0].env[?name==\`BUILD_ID\`].value | [0]' \
+          --query "properties.template.containers[0].env[?name=='BUILD_ID'].value | [0]" \
             --output tsv)"
 
           echo "Expected image: $EXPECTED_IMAGE"
