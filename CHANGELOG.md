@@ -15,9 +15,27 @@ The project follows Semantic Versioning for release tags.
 - Initial project README
 - MIT License
 
+### Phase 7 Azure Container Apps Cloud Deployment
+
+- Added production-style cloud deployment using Azure Container Apps Consumption in East US 2.
+- Created resource group `rg-devops-portfolio-prod`.
+- Created Container Apps environment `cae-devops-portfolio-prod`.
+- Deployed `ca-devops-portfolio-api` from immutable GHCR image `sha-ea30b66`.
+- Configured external Azure-managed HTTPS ingress to application port `3000`.
+- Configured `0.25` vCPU and `0.5Gi` memory.
+- Configured minimum replicas `0` and maximum replicas `1`.
+- Configured startup, liveness, and readiness HTTP probes against `/health` on port `3000`.
+- Verified revision `health-ea30b66` as active, healthy, provisioned, and receiving 100% of ingress traffic.
+- Verified public `/`, `/health`, `/version`, and `/api/status` endpoints.
+- Verified runtime build traceability using `BUILD_ID=sha-ea30b66`.
+- Verified Azure Container Apps system and application console log access.
+- Kept persistent Log Analytics storage disabled.
+- Verified no Log Analytics workspace was created.
+- Verified no ACR, standalone public IP, load balancer, NAT gateway, or storage account was introduced.
+- Captured four verified Phase 7 cloud deployment evidence screenshots.
+
 ### Planned
 
-- Cloud deployment
 - Continuous deployment automation
 - Post-deployment smoke testing
 - Security scanning
