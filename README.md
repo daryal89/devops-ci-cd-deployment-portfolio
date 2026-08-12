@@ -2,7 +2,7 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In Development - Phase 8 Continuous Deployment implemented and verified.
+> **Project Status:** In Development - Phase 9 Post-Deployment Smoke Tests and Monitoring Fundamentals implemented and verified.
 
 ## Project Objective
 
@@ -226,3 +226,63 @@ Final verified production identity:
 - [Healthy active Azure production revision](screenshots/phase-08-continuous-deployment/05-azure-active-revision.png)
 - [Final synchronized main repository state](screenshots/phase-08-continuous-deployment/06-final-main-repository-state.png)
 - [Documentation-only deployment gate](screenshots/phase-08-continuous-deployment/07-docs-only-deployment-gate.png)
+
+### Phase 9 - Post-Deployment Smoke Tests and Monitoring Fundamentals
+
+Phase 9 extends the production CI/CD pipeline with automated runtime validation after every approved production deployment.
+
+The post-deployment validation workflow:
+
+- Runs only after a successful production deployment from `main`
+- Executes as a separate `Post-Deployment Smoke Tests` GitHub Actions job
+- Dynamically obtains the deployed Azure Container App public URL
+- Uses the immutable deployment `BUILD_ID` produced by the deployment job
+- Requires no Azure credentials or OIDC permissions in the smoke-test job
+- Uses only read-only repository permissions
+- Includes retry handling for newly deployed revisions
+- Validates both HTTP availability and expected application response contracts
+- Fails closed when the deployed runtime identity does not match the expected build
+
+The automated production smoke test validates:
+
+- `/` returns HTTP 200 and reports `status: running`
+- `/health` returns HTTP 200 and reports `status: healthy`
+- `/version` returns HTTP 200 and the expected deployed `BUILD_ID`
+- `/api/status` returns HTTP 200 and reports `status: operational`
+- `/api/status` reports the `production` environment
+- `/api/status` returns the expected deployed `BUILD_ID`
+
+The reusable smoke-test implementation is stored at:
+
+- `scripts/post-deployment-smoke-test.sh`
+
+The script was verified with both positive and negative testing before CI integration. A deliberately incorrect BUILD_ID was correctly rejected with a non-zero exit code, proving the deployment validation gate fails when runtime identity is incorrect.
+
+Pull-request security behavior was also verified:
+
+- Application Quality runs on pull requests
+- Docker Build runs on pull requests
+- Publish Container Image is skipped
+- Deploy to Azure is skipped
+- Post-Deployment Smoke Tests is skipped
+
+The successful Phase 9 production workflow deployed and validated:
+
+- Main commit: `9c386e0f98ccdb128248b87d7cbd4d1986eac83f`
+- Azure `BUILD_ID`: `sha-9c386e0`
+- Container image: `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-9c386e0`
+- Active revision: `ca-devops-portfolio-api--cd-9c386e0`
+- Traffic weight: `100%`
+- Health state: `Healthy`
+- Provisioning state: `Provisioned`
+
+Azure Container Apps logging fundamentals were also verified. Container console logs were accessible and confirmed the Node application was running, while system logs exposed production revision lifecycle events including replica creation, image pulling, container creation, and container startup.
+
+#### Phase 9 Evidence
+
+- [Pull-request smoke-test security gate](screenshots/phase-09-post-deployment-smoke-tests/01-pr-smoke-test-security-gate.png)
+- [Successful production CI/CD and smoke-test workflow](screenshots/phase-09-post-deployment-smoke-tests/02-production-smoke-test-workflow-success.png)
+- [Automated production smoke-test results](screenshots/phase-09-post-deployment-smoke-tests/03-production-smoke-test-results.png)
+- [Verified production deployment identity](screenshots/phase-09-post-deployment-smoke-tests/04-production-deployment-identity.png)
+- [Azure Container Apps system logs accessible](screenshots/phase-09-post-deployment-smoke-tests/05-azure-system-logs-accessible.png)
+- [Final synchronized main repository state](screenshots/phase-09-post-deployment-smoke-tests/06-final-main-repository-state.png)

@@ -554,3 +554,108 @@ Demonstrates:
 - Workflow completed successfully while preserving the existing production deployment
 
 **Status:** Verified
+
+## Phase 9 - Post-Deployment Smoke Tests and Monitoring Fundamentals
+
+### 01 - Pull Request Smoke-Test Security Gate
+
+**File:** [`phase-09-post-deployment-smoke-tests/01-pr-smoke-test-security-gate.png`](phase-09-post-deployment-smoke-tests/01-pr-smoke-test-security-gate.png)
+
+Demonstrates:
+
+- Phase 9 pull-request workflow validation
+- Release Change Detection completed successfully
+- Application Quality completed successfully
+- Docker Build completed successfully
+- Publish Container Image intentionally skipped
+- Deploy to Azure intentionally skipped
+- Post-Deployment Smoke Tests intentionally skipped
+- Pull requests cannot publish, deploy, or execute production smoke tests
+
+**Status:** Verified
+
+### 02 - Successful Production CI/CD and Smoke-Test Workflow
+
+**File:** [`phase-09-post-deployment-smoke-tests/02-production-smoke-test-workflow-success.png`](phase-09-post-deployment-smoke-tests/02-production-smoke-test-workflow-success.png)
+
+Demonstrates:
+
+- GitHub Actions workflow triggered by a `push` to `main`
+- Release Change Detection succeeded
+- Application Quality succeeded
+- Docker Build succeeded
+- Publish Container Image succeeded
+- Deploy to Azure succeeded
+- Post-Deployment Smoke Tests succeeded
+- Production workflow dependency chain completed end-to-end
+- Runtime validation occurred only after successful deployment
+
+**Status:** Verified
+
+### 03 - Automated Production Smoke-Test Results
+
+**File:** [`phase-09-post-deployment-smoke-tests/03-production-smoke-test-results.png`](phase-09-post-deployment-smoke-tests/03-production-smoke-test-results.png)
+
+Demonstrates:
+
+- Dedicated `Post-Deployment Smoke Tests` GitHub Actions job
+- Dynamically resolved Azure Container App URL
+- Expected production BUILD_ID `sha-9c386e0`
+- `/` returned HTTP 200 and passed its response contract
+- `/health` returned HTTP 200 and passed its response contract
+- `/version` returned HTTP 200 and matched the expected BUILD_ID
+- `/api/status` returned HTTP 200
+- `/api/status` confirmed operational production state
+- `/api/status` matched the expected BUILD_ID
+- Complete production smoke test passed
+
+**Status:** Verified
+
+### 04 - Verified Production Deployment Identity
+
+**File:** [`phase-09-post-deployment-smoke-tests/04-production-deployment-identity.png`](phase-09-post-deployment-smoke-tests/04-production-deployment-identity.png)
+
+Demonstrates:
+
+- Azure BUILD_ID `sha-9c386e0`
+- Immutable GHCR image `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-9c386e0`
+- Active Azure revision corresponding to source commit `9c386e0`
+- Revision active state is `True`
+- Production traffic weight is `100%`
+- Health state is `Healthy`
+- Provisioning state is `Provisioned`
+- Git commit, image identity, runtime BUILD_ID, and Azure revision are traceable
+
+**Status:** Verified
+
+### 05 - Azure Container Apps System Logs Accessible
+
+**File:** [`phase-09-post-deployment-smoke-tests/05-azure-system-logs-accessible.png`](phase-09-post-deployment-smoke-tests/05-azure-system-logs-accessible.png)
+
+Demonstrates:
+
+- Azure Container Apps system logs are accessible
+- Production revision and replica lifecycle events are visible
+- Replica creation is observable
+- Container image pulling is observable
+- Successful image pull is observable
+- Container creation is observable
+- Container startup is observable
+- Production revision identity is traceable through Azure operational logs
+
+**Status:** Verified
+
+### 06 - Final Main Repository State
+
+**File:** [`phase-09-post-deployment-smoke-tests/06-final-main-repository-state.png`](phase-09-post-deployment-smoke-tests/06-final-main-repository-state.png)
+
+Demonstrates:
+
+- Final repository branch is `main`
+- Local `main` SHA is `9c386e0f98ccdb128248b87d7cbd4d1986eac83f`
+- `origin/main` has the identical SHA
+- Local repository is synchronized with the remote
+- Working tree is clean
+- Phase 9 feature branch cleanup was completed before final evidence packaging
+
+**Status:** Verified
