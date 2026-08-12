@@ -171,6 +171,10 @@ jobs:
 
     environment: production
 
+    outputs:
+      base_url: ${{ steps.deployment_info.outputs.base_url }}
+      build_id: ${{ steps.identity.outputs.build_id }}
+
     concurrency:
       group: production-deploy
       cancel-in-progress: false
@@ -316,3 +320,64 @@ jobs:
           [[ "$ACTUAL_BUILD_ID" == "$EXPECTED_BUILD_ID" ]]
 
           echo "PASS: immutable Azure deployment verified"
+
+      - name: Resolve deployed application URL
+        id: deployment_info
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          FQDN="$(az containerapp show \
+            --name "$CONTAINER_APP" \
+            --resource-group "$RESOURCE_GROUP" \
+            --query "properties.configuration.ingress.fqdn" \
+            --output tsv)"
+
+          if [[ -z "$FQDN" ]]; then
+            echo "ERROR: Azure Container App FQDN could not be resolved."
+            exit 1
+          fi
+
+          BASE_URL="https://${FQDN}"
+
+          echo "base_url=$BASE_URL" >> "$GITHUB_OUTPUT"
+          echo "Resolved application URL: $BASE_URL"
+
+
+  smoke_test:
+    name: Post-Deployment Smoke Tests
+    needs:
+      - deploy
+    if: >-
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      needs.deploy.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Run production smoke tests
+        shell: bash
+        env:
+          BASE_URL: ${{ needs.deploy.outputs.base_url }}
+          EXPECTED_BUILD_ID: ${{ needs.deploy.outputs.build_id }}
+        run: |
+          set -euo pipefail
+
+          echo "Smoke-test URL: $BASE_URL"
+          echo "Expected BUILD_ID: $EXPECTED_BUILD_ID"
+
+          bash scripts/post-deployment-smoke-test.sh \
+            "$BASE_URL" \
+            "$EXPECTED_BUILD_ID"
