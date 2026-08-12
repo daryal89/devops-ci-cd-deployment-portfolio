@@ -432,3 +432,106 @@ Demonstrates:
 - Active revision traceability through `health-ea30b66`
 
 **Status:** Verified
+
+## Phase 8 - Continuous Deployment to Azure
+
+### 01 - Pull Request Deployment Security Gate
+
+**File:** [`phase-08-continuous-deployment/01-pr-deployment-gate.png`](phase-08-continuous-deployment/01-pr-deployment-gate.png)
+
+Demonstrates:
+
+- Phase 8 pull request validation before production deployment
+- Pull request targeting `main`
+- Release Change Detection completed successfully
+- Application Quality completed successfully
+- Docker Build completed successfully
+- Publish Container Image intentionally skipped for the pull-request event
+- Deploy to Azure intentionally skipped for the pull-request event
+- Release-relevant workflow change correctly detected
+- Pull requests cannot publish production images or deploy to Azure
+- Clean local repository state after deployment-gate verification
+
+**Status:** Verified
+
+### 02 - Successful Production CI/CD Workflow
+
+**File:** [`phase-08-continuous-deployment/02-github-actions-production-success.png`](phase-08-continuous-deployment/02-github-actions-production-success.png)
+
+Demonstrates:
+
+- GitHub Actions workflow triggered by a `push` to `main`
+- Production commit `1454909`
+- Release Change Detection completed successfully
+- Application Quality completed successfully
+- Docker Build completed successfully
+- Publish Container Image completed successfully
+- Deploy to Azure completed successfully
+- Complete CI/CD dependency graph executed successfully
+- End-to-end production deployment completed with all required jobs passing
+
+**Status:** Verified
+
+### 03 - Deployment Verification Hotfix Pull Request
+
+**File:** [`phase-08-continuous-deployment/03-hotfix-pr-10-merged.png`](phase-08-continuous-deployment/03-hotfix-pr-10-merged.png)
+
+Demonstrates:
+
+- Dedicated hotfix pull request `#10`
+- Hotfix branch `fix/phase-8-deployment-verification`
+- Root cause documented as invalid JMESPath quoting
+- Azure deployment itself had succeeded before the verification defect was corrected
+- Only the deployment `BUILD_ID` verification query was changed
+- One commit and one file changed
+- Five pull-request checks passed
+- Hotfix successfully merged into `main`
+- Controlled defect remediation through the pull-request workflow
+
+**Status:** Verified
+
+### 04 - Azure Production Deployment Identity
+
+**File:** [`phase-08-continuous-deployment/04-azure-build-id-and-image.png`](phase-08-continuous-deployment/04-azure-build-id-and-image.png)
+
+Demonstrates:
+
+- Current repository branch is `main`
+- Main commit `1454909c4d2881cdf0ace2c9b179cecc5615dc14`
+- Azure Container App `BUILD_ID` is `sha-1454909`
+- Deployed GHCR image is `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-1454909`
+- Source commit, runtime build identity, and immutable container image tag match
+- End-to-end deployment traceability from Git commit to Azure runtime
+
+**Status:** Verified
+
+### 05 - Azure Active Revision Health
+
+**File:** [`phase-08-continuous-deployment/05-azure-active-revision.png`](phase-08-continuous-deployment/05-azure-active-revision.png)
+
+Demonstrates:
+
+- Active Azure Container Apps revision `ca-devops-portfolio-api--cd-1454909`
+- Revision is active
+- Production traffic weight is `100%`
+- Health state is `Healthy`
+- Provisioning state is `Provisioned`
+- Revision identity matches the deployed source commit
+- Production revision successfully received the deployment
+
+**Status:** Verified
+
+### 06 - Final Main Repository State
+
+**File:** [`phase-08-continuous-deployment/06-final-main-repository-state.png`](phase-08-continuous-deployment/06-final-main-repository-state.png)
+
+Demonstrates:
+
+- Final repository branch is `main`
+- Local `main` SHA is `1454909c4d2881cdf0ace2c9b179cecc5615dc14`
+- `origin/main` has the identical commit SHA
+- Local repository is synchronized with the remote
+- Working tree is clean
+- Phase 8 hotfix and production verification concluded from a stable repository state
+
+**Status:** Verified

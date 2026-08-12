@@ -2,7 +2,7 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In development — Phase 7 Azure Container Apps cloud deployment implemented and verified.
+> **Project Status:** In Development - Phase 8 Continuous Deployment implemented and verified.
 
 ## Project Objective
 
@@ -177,3 +177,51 @@ See [`screenshots/README.md`](screenshots/README.md) for the complete evidence i
 - [Public cloud endpoints working](screenshots/phase-07-cloud-deployment/02-public-cloud-endpoints-working.png)
 - [Health and revision validation](screenshots/phase-07-cloud-deployment/03-health-revision-validation.png)
 - [Azure live logs](screenshots/phase-07-cloud-deployment/04-azure-live-logs.png)
+
+### Phase 8 - Continuous Deployment to Azure
+
+Phase 8 extends the verified CI, GHCR publishing, and Azure Container Apps foundation into a controlled continuous deployment workflow from the protected `main` branch.
+
+The deployment workflow:
+
+- Keeps pull requests validation-only and prevents PRs from publishing container images or deploying to Azure
+- Detects release-relevant changes before allowing deployment work to proceed
+- Publishes an immutable GHCR image tagged with the source commit SHA
+- Deploys the verified image to Azure Container Apps only after successful CI validation
+- Uses source-commit-derived deployment identity for end-to-end traceability
+- Sets the Azure Container App `BUILD_ID` to the deployed immutable image identifier
+- Creates a revision name derived from the source commit
+- Verifies the deployed `BUILD_ID` and container image after deployment
+- Uses the Azure revision state to confirm the production revision is active, healthy, provisioned, and receiving 100% of traffic
+
+A deployment-verification quoting defect was identified after the initial Phase 8 deployment. The Azure deployment itself had completed successfully, but the JMESPath verification query failed because of invalid escaped quoting.
+
+The defect was corrected through a dedicated hotfix branch and pull request:
+
+- Hotfix branch: `fix/phase-8-deployment-verification`
+- Pull request: `#10`
+- Only `.github/workflows/ci.yml` was changed
+- Hotfix contained one logical line replacement
+- Pull-request CI checks passed before merge
+- The hotfix was squash-merged into `main`
+- The subsequent `main` workflow completed successfully through `Deploy to Azure`
+- The temporary local and remote hotfix branches were removed after production verification
+
+Final verified production identity:
+
+- Main commit: `1454909c4d2881cdf0ace2c9b179cecc5615dc14`
+- Azure `BUILD_ID`: `sha-1454909`
+- Container image: `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-1454909`
+- Active revision: `ca-devops-portfolio-api--cd-1454909`
+- Traffic weight: `100%`
+- Health state: `Healthy`
+- Provisioning state: `Provisioned`
+
+#### Phase 8 Evidence
+
+- [Pull-request deployment security gate](screenshots/phase-08-continuous-deployment/01-pr-deployment-gate.png)
+- [Successful production CI/CD workflow](screenshots/phase-08-continuous-deployment/02-github-actions-production-success.png)
+- [Merged deployment-verification hotfix PR](screenshots/phase-08-continuous-deployment/03-hotfix-pr-10-merged.png)
+- [Azure BUILD_ID and immutable deployed image](screenshots/phase-08-continuous-deployment/04-azure-build-id-and-image.png)
+- [Healthy active Azure production revision](screenshots/phase-08-continuous-deployment/05-azure-active-revision.png)
+- [Final synchronized main repository state](screenshots/phase-08-continuous-deployment/06-final-main-repository-state.png)
