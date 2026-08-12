@@ -2,7 +2,7 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In development — Phase 6 GitHub Container Registry publishing implemented and verified.
+> **Project Status:** In development — Phase 7 Azure Container Apps cloud deployment implemented and verified.
 
 ## Project Objective
 
@@ -45,7 +45,7 @@ Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker I
 | Docker containerization | Completed |
 | GitHub Actions CI | Completed |
 | Container registry publishing | Completed |
-| Cloud deployment | Not started |
+| Cloud deployment | Completed |
 | Continuous deployment | Not started |
 | Release v1.0.0 | Not started |
 
@@ -100,6 +100,30 @@ The published image was independently pulled from GHCR and verified to:
 - Return `{"status":"healthy"}` from `/health`
 - Preserve a SHA-256 container-image digest
 
+## Cloud Deployment
+
+The verified application container is deployed to **Azure Container Apps** using the Consumption plan in **East US 2**.
+
+- Resource group: `rg-devops-portfolio-prod`
+- Container Apps environment: `cae-devops-portfolio-prod`
+- Container App: `ca-devops-portfolio-api`
+- Immutable deployment image: `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-ea30b66`
+- The immutable `sha-*` image provides source-to-runtime traceability
+- GHCR access uses a dedicated registry pull credential limited to `read:packages`; the credential is stored through Azure's secret-backed registry configuration and is not committed to Git
+- Runtime allocation: `0.25` vCPU and `0.5Gi` memory
+- Scaling is restricted to `0–1` replicas, allowing the Consumption workload to scale to zero when idle
+- External Azure-managed HTTPS ingress forwards requests to application port `3000`
+- Insecure HTTP access is disabled
+- Explicit startup, liveness, and readiness probes call `/health` on port `3000`
+- Single revision mode is enabled
+- Revision `health-ea30b66` was verified as active, healthy, provisioned, and receiving 100% of ingress traffic
+- Public `/`, `/health`, `/version`, and `/api/status` endpoints were verified successfully
+- `/version` and `/api/status` report build ID `sha-ea30b66`
+- Azure Container Apps system logs and application console logs were verified through Azure CLI
+- Persistent Log Analytics storage is intentionally disabled for this low-traffic portfolio workload
+- The Phase 7 resource group contains only the Container Apps environment and Container App
+- No Azure Container Registry, standalone public IP, load balancer, NAT gateway, storage account, or Log Analytics workspace was introduced
+
 ## Security Principles
 
 - No real secrets committed to Git
@@ -146,3 +170,10 @@ Current evidence includes:
 - Phase 6 published-image pull and runtime verification
 
 See [`screenshots/README.md`](screenshots/README.md) for the complete evidence index and screenshot policy.
+
+### Phase 7 — Azure Container Apps Cloud Deployment
+
+- [Azure Container App overview](screenshots/phase-07-cloud-deployment/01-azure-container-app-overview.png)
+- [Public cloud endpoints working](screenshots/phase-07-cloud-deployment/02-public-cloud-endpoints-working.png)
+- [Health and revision validation](screenshots/phase-07-cloud-deployment/03-health-revision-validation.png)
+- [Azure live logs](screenshots/phase-07-cloud-deployment/04-azure-live-logs.png)

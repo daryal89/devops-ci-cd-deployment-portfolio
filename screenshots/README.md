@@ -364,3 +364,71 @@ Demonstrates:
 - Published GHCR container remained running and healthy after startup
 
 **Status:** Verified
+
+## Phase 7 — Azure Container Apps Cloud Deployment
+
+### 01 — Azure Container App Overview
+
+**File:** [`phase-07-cloud-deployment/01-azure-container-app-overview.png`](phase-07-cloud-deployment/01-azure-container-app-overview.png)
+
+Demonstrates:
+
+- Azure Container App `ca-devops-portfolio-api`
+- Running application status in East US 2
+- `rg-devops-portfolio-prod` resource group
+- `cae-devops-portfolio-prod` Container Apps environment
+- Consumption-only environment
+- Public Azure application URL
+- Production/project resource tags
+
+**Status:** Verified
+
+### 02 — Public Cloud Endpoints Working
+
+**File:** [`phase-07-cloud-deployment/02-public-cloud-endpoints-working.png`](phase-07-cloud-deployment/02-public-cloud-endpoints-working.png)
+
+Demonstrates:
+
+- Public Azure HTTPS application endpoint
+- `/` returning HTTP 200
+- `/health` returning HTTP 200
+- `/version` returning HTTP 200
+- `/api/status` returning HTTP 200
+- Production environment response
+- Runtime build traceability through `sha-ea30b66`
+
+**Status:** Verified
+
+### 03 — Health and Revision Validation
+
+**File:** [`phase-07-cloud-deployment/03-health-revision-validation.png`](phase-07-cloud-deployment/03-health-revision-validation.png)
+
+Demonstrates:
+
+- Azure Container Apps single revision mode
+- Active `health-ea30b66` revision
+- Healthy and provisioned revision state
+- 100% traffic routed to the latest revision
+- Explicit startup, liveness, and readiness probes
+- `/health` probe target on port `3000`
+- Immutable GHCR image `sha-ea30b66`
+- `0.25` vCPU and `0.5Gi` memory
+- Scale-to-zero configuration with `0–1` replicas
+
+**Status:** Verified
+
+### 04 — Azure Live Logs
+
+**File:** [`phase-07-cloud-deployment/04-azure-live-logs.png`](phase-07-cloud-deployment/04-azure-live-logs.png)
+
+Demonstrates:
+
+- Azure Container Apps system log access
+- Azure platform container and scaling lifecycle events
+- Application console log access
+- Successful connection to the active container
+- Node API listening on port `3000`
+- Public `/health` verification returning HTTP 200 after log inspection
+- Active revision traceability through `health-ea30b66`
+
+**Status:** Verified
