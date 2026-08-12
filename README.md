@@ -225,3 +225,4 @@ Final verified production identity:
 - [Azure BUILD_ID and immutable deployed image](screenshots/phase-08-continuous-deployment/04-azure-build-id-and-image.png)
 - [Healthy active Azure production revision](screenshots/phase-08-continuous-deployment/05-azure-active-revision.png)
 - [Final synchronized main repository state](screenshots/phase-08-continuous-deployment/06-final-main-repository-state.png)
+- [Documentation-only deployment gate](screenshots/phase-08-continuous-deployment/07-docs-only-deployment-gate.png)

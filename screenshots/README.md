@@ -535,3 +535,22 @@ Demonstrates:
 - Phase 8 hotfix and production verification concluded from a stable repository state
 
 **Status:** Verified
+
+### 07 - Documentation-Only Deployment Gate
+
+**File:** [`phase-08-continuous-deployment/07-docs-only-deployment-gate.png`](phase-08-continuous-deployment/07-docs-only-deployment-gate.png)
+
+Demonstrates:
+
+- GitHub Actions workflow triggered by a documentation-only `push` to `main`
+- Release Change Detection completed successfully
+- Application Quality completed successfully
+- Docker Build completed successfully
+- Publish Container Image was intentionally skipped
+- Deploy to Azure was intentionally skipped
+- Documentation and screenshot changes do not create unnecessary production images
+- Documentation-only changes do not trigger unnecessary Azure deployments
+- Release-change gating reduces deployment risk and unnecessary cloud activity
+- Workflow completed successfully while preserving the existing production deployment
+
+**Status:** Verified
