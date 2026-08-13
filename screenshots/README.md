@@ -659,3 +659,137 @@ Demonstrates:
 - Phase 9 feature branch cleanup was completed before final evidence packaging
 
 **Status:** Verified
+
+---
+
+## Phase 10 - Production Failure, Troubleshooting, Rollback and Recovery
+
+Phase 10 demonstrates a controlled production incident lifecycle in which a production-only application contract defect was intentionally introduced, detected by post-deployment smoke testing, diagnosed through runtime identity and Azure revision inspection, recovered through immutable-image rollback, and permanently corrected through a dedicated remediation pull request.
+
+### 01 - Controlled Production Smoke-Test Failure
+
+**File:** [phase-10-failure-troubleshooting-rollback/01-controlled-production-smoke-test-failure.png](phase-10-failure-troubleshooting-rollback/01-controlled-production-smoke-test-failure.png)
+
+Demonstrates:
+
+- Controlled production failure deployment reached `main`
+- Release Change Detection completed successfully
+- Application Quality completed successfully
+- Docker Build completed successfully
+- Publish Container Image completed successfully
+- Deploy to Azure completed successfully
+- Post-Deployment Smoke Tests failed as intentionally designed
+- Production workflow isolated the defect to post-deployment application behavior
+- Deployment success did not automatically imply release correctness
+
+**Status:** Verified
+
+### 02 - Smoke-Test Failure Details
+
+**File:** [phase-10-failure-troubleshooting-rollback/02-smoke-test-failure-details.png](phase-10-failure-troubleshooting-rollback/02-smoke-test-failure-details.png)
+
+Demonstrates:
+
+- Root endpoint returned HTTP `200`
+- Root response contract passed
+- `/health` returned HTTP `200`
+- `/health` response contract passed
+- `/version` returned HTTP `200`
+- `/version` reported defective deployment BUILD_ID `sha-be30810`
+- `/version` response contract passed
+- `/api/status` returned HTTP `200`
+- `/api/status` reported `environment: staging`
+- Production contract expected `environment: production`
+- Post-deployment smoke test correctly rejected the functional defect
+- Smoke-test process completed with a non-zero exit code
+- HTTP success alone did not guarantee application correctness
+
+**Status:** Verified
+
+### 03 - Defective Production Identity
+
+**File:** [phase-10-failure-troubleshooting-rollback/03-defective-production-identity.png](phase-10-failure-troubleshooting-rollback/03-defective-production-identity.png)
+
+Demonstrates:
+
+- Defective production BUILD_ID is `sha-be30810`
+- Deployed immutable image is `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-be30810`
+- Defective Azure revision is `ca-devops-portfolio-api--cd-be30810`
+- Revision is active
+- Production traffic weight is `100%`
+- Azure HealthState is `Healthy`
+- Azure ProvisioningState is `Provisioned`
+- `/health` continues to report `healthy`
+- `/api/status` reports the incorrect `environment: staging`
+- Healthy infrastructure can still serve functionally incorrect application behavior
+- Runtime identity is traceable from source commit to image, revision, and BUILD_ID
+
+**Status:** Verified
+
+### 04 - Emergency Rollback Success
+
+**File:** [phase-10-failure-troubleshooting-rollback/04-emergency-rollback-success.png](phase-10-failure-troubleshooting-rollback/04-emergency-rollback-success.png)
+
+Demonstrates:
+
+- Previously verified immutable image `sha-9c386e0` was used for emergency recovery
+- Rollback BUILD_ID is `sha-9c386e0`
+- Rollback image is `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-9c386e0`
+- Azure rollback revision is `ca-devops-portfolio-api--rollback-9c386e0`
+- Rollback revision became active
+- Production traffic weight returned to `100%`
+- Azure HealthState is `Healthy`
+- Azure ProvisioningState is `Provisioned`
+- Root endpoint passed
+- `/health` passed
+- `/version` reported the expected rollback BUILD_ID
+- `/api/status` restored `environment: production`
+- Complete post-deployment production smoke test passed
+- Emergency recovery was verified before permanent source remediation began
+
+**Status:** Verified
+
+### 05 - Source Remediation Production Success
+
+**File:** [phase-10-failure-troubleshooting-rollback/05-source-remediation-production-success.png](phase-10-failure-troubleshooting-rollback/05-source-remediation-production-success.png)
+
+Demonstrates:
+
+- Permanent source remediation was deployed through the normal CI/CD workflow
+- Release Change Detection completed successfully
+- Application Quality completed successfully
+- Docker Build completed successfully
+- Publish Container Image completed successfully
+- Deploy to Azure completed successfully
+- Post-Deployment Smoke Tests completed successfully
+- Corrected production BUILD_ID is `sha-740dfad`
+- Corrected immutable image is `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-740dfad`
+- Corrected Azure revision is `ca-devops-portfolio-api--cd-740dfad`
+- Production traffic weight is `100%`
+- Azure HealthState is `Healthy`
+- Azure ProvisioningState is `Provisioned`
+- `/health` reports healthy
+- `/version` reports corrected BUILD_ID `sha-740dfad`
+- `/api/status` reports `environment: production`
+- Final production smoke-test suite passed
+- Permanent remediation successfully replaced the temporary rollback state
+
+**Status:** Verified
+
+### 06 - Final Main Repository State
+
+**File:** [phase-10-failure-troubleshooting-rollback/06-final-main-repository-state.png](phase-10-failure-troubleshooting-rollback/06-final-main-repository-state.png)
+
+Demonstrates:
+
+- Final repository branch is `main`
+- Local `main` SHA is `740dfade8c3e9bd8dc64e5bc6012221d983df221`
+- `origin/main` has the identical SHA
+- Final corrected remediation commit is current
+- Controlled-failure feature branch was removed
+- Source-remediation branch was removed
+- Local and remote repository state are synchronized
+- Working tree is clean
+- Phase 10 technical implementation concluded from a stable repository state
+
+**Status:** Verified

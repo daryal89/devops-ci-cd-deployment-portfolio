@@ -286,3 +286,163 @@ Azure Container Apps logging fundamentals were also verified. Container console 
 - [Verified production deployment identity](screenshots/phase-09-post-deployment-smoke-tests/04-production-deployment-identity.png)
 - [Azure Container Apps system logs accessible](screenshots/phase-09-post-deployment-smoke-tests/05-azure-system-logs-accessible.png)
 - [Final synchronized main repository state](screenshots/phase-09-post-deployment-smoke-tests/06-final-main-repository-state.png)
+
+---
+
+## Phase 10 — Production Failure Simulation, Troubleshooting, Rollback & Recovery
+
+Phase 10 extends the CI/CD portfolio beyond successful deployment by demonstrating a complete controlled production incident lifecycle: failure detection, runtime diagnosis, emergency rollback, permanent source remediation, and verified recovery.
+
+### Business Purpose
+
+Production deployment success does not always mean the released application is functionally correct. Phase 10 demonstrates how layered validation, immutable artifacts, deployment identity, and post-deployment smoke tests reduce release risk and support rapid recovery.
+
+The exercise intentionally introduced a production-only `/api/status` contract defect while leaving the application health endpoint operational.
+
+This created a realistic failure condition in which:
+
+- Application Quality passed
+- Docker Build passed
+- container image publishing passed
+- Azure deployment passed
+- Azure reported the revision as `Healthy`
+- Azure reported the revision as `Provisioned`
+- production traffic remained at `100%`
+- `/health` returned HTTP 200
+- Post-Deployment Smoke Tests still detected incorrect application behavior
+
+### Controlled Failure
+
+Controlled-failure pull request: **PR #12**
+
+Controlled-failure main commit: `be308107bdaa1705d4d71c8f13e8ee523c18a7b2`
+
+Defective deployment identity:
+
+- BUILD_ID: `sha-be30810`
+- Image: `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-be30810`
+- Revision: `ca-devops-portfolio-api--cd-be30810`
+
+The defective `/api/status` endpoint returned HTTP 200 but reported:
+
+- expected environment: `production`
+- actual environment: `staging`
+
+The post-deployment smoke-test gate correctly rejected the release.
+
+### Production Failure Pattern
+
+The controlled production workflow demonstrated:
+
+- Release Change Detection — success
+- Application Quality — success
+- Docker Build — success
+- Publish Container Image — success
+- Deploy to Azure — success
+- Post-Deployment Smoke Tests — **failure**
+
+This demonstrated that deployment success and infrastructure health are not equivalent to application correctness.
+
+### Emergency Rollback
+
+Before the exercise began, the previously verified immutable production image `sha-9c386e0` was confirmed to still be available.
+
+The failed deployment was rolled back to:
+
+- BUILD_ID: `sha-9c386e0`
+- Image: `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-9c386e0`
+- Revision: `ca-devops-portfolio-api--rollback-9c386e0`
+
+Recovery verification confirmed:
+
+- rollback revision active
+- `100%` production traffic
+- HealthState `Healthy`
+- ProvisioningState `Provisioned`
+- `/` passed
+- `/health` passed
+- `/version` passed
+- `/api/status` restored `environment: production`
+- full production smoke-test suite passed
+
+### Permanent Source Remediation
+
+Emergency rollback restored production, but the defective source still existed on `main`.
+
+A dedicated remediation branch and **PR #13** restored the correct application contract.
+
+The corrected source was validated with:
+
+- ESLint
+- all automated tests
+- Docker build
+- production-style local Docker execution
+- direct `/api/status` validation
+- the real post-deployment smoke-test script
+
+PR #13 was then squash-merged and triggered a fresh production deployment.
+
+Final corrected production identity:
+
+- Main commit: `740dfade8c3e9bd8dc64e5bc6012221d983df221`
+- BUILD_ID: `sha-740dfad`
+- Image: `ghcr.io/daryal89/devops-ci-cd-deployment-portfolio:sha-740dfad`
+- Revision: `ca-devops-portfolio-api--cd-740dfad`
+
+### Final Production Result
+
+The final corrected production workflow completed all six jobs successfully:
+
+- Release Change Detection — success
+- Application Quality — success
+- Docker Build — success
+- Publish Container Image — success
+- Deploy to Azure — success
+- Post-Deployment Smoke Tests — success
+
+Final runtime verification confirmed:
+
+- Active revision
+- `100%` production traffic
+- HealthState `Healthy`
+- ProvisioningState `Provisioned`
+- `/` passed
+- `/health` passed
+- `/version` reported `sha-740dfad`
+- `/api/status` reported `environment: production`
+- final post-deployment smoke test passed
+
+### Operational Documentation
+
+Detailed operational documentation:
+
+- [Production Troubleshooting Guide](docs/troubleshooting.md)
+- [Production Rollback Guide](docs/rollback.md)
+
+### Phase 10 Evidence
+
+- [Controlled production smoke-test failure](screenshots/phase-10-failure-troubleshooting-rollback/01-controlled-production-smoke-test-failure.png)
+- [Exact smoke-test failure details](screenshots/phase-10-failure-troubleshooting-rollback/02-smoke-test-failure-details.png)
+- [Healthy but defective production identity](screenshots/phase-10-failure-troubleshooting-rollback/03-defective-production-identity.png)
+- [Emergency rollback success](screenshots/phase-10-failure-troubleshooting-rollback/04-emergency-rollback-success.png)
+- [Source remediation production success](screenshots/phase-10-failure-troubleshooting-rollback/05-source-remediation-production-success.png)
+- [Final synchronized main repository state](screenshots/phase-10-failure-troubleshooting-rollback/06-final-main-repository-state.png)
+
+### Skills Demonstrated
+
+Phase 10 provides practical evidence of:
+
+- production incident detection
+- post-deployment validation
+- application contract testing
+- Git-to-runtime deployment traceability
+- immutable container image rollback
+- Azure Container Apps revision inspection
+- runtime BUILD_ID verification
+- structured root-cause analysis
+- emergency production recovery
+- source remediation through pull requests
+- end-to-end recovery verification
+- operational troubleshooting and rollback documentation
+
+**Phase 10 Status:** Completed and verified.
