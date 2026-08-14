@@ -1,6 +1,6 @@
 {
   "name": "devops-ci-cd-deployment-portfolio",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Production-style DevOps CI/CD portfolio demonstrating Git, automated testing, Docker, GitHub Actions, container registry, cloud deployment, security, and release management.",
   "private": true,
   "type": "module",
