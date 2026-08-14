@@ -2,7 +2,9 @@
 
 A production-style DevOps portfolio project demonstrating the software delivery lifecycle for a small Node.js and Express web API.
 
-> **Project Status:** In Development - Phase 9 Post-Deployment Smoke Tests and Monitoring Fundamentals implemented and verified.
+> **Project Status:** Core implementation complete - Phases 0-10 implemented and verified. Final v1.0.0 release hardening in progress.
+
+**Live Production:** https://ca-devops-portfolio-api.politedune-2cb686dc.eastus2.azurecontainerapps.io
 
 ## Project Objective
 
@@ -15,7 +17,7 @@ This project demonstrates practical DevOps skills through source control, automa
 - `GET /version`
 - `GET /api/status`
 
-These endpoints will provide application availability, health, environment, version, status, and build information.
+These endpoints provide application availability, health, environment, version, status, and build information.
 
 ## Technology Stack
 
@@ -31,7 +33,7 @@ These endpoints will provide application availability, health, environment, vers
 - Git Bash
 - Visual Studio Code
 
-## Planned DevOps Workflow
+## DevOps Workflow
 
 Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker Image → GitHub Container Registry → Cloud Deployment → Smoke Tests
 
@@ -46,8 +48,10 @@ Developer → Feature Branch → Pull Request → GitHub Actions CI → Docker I
 | GitHub Actions CI | Completed |
 | Container registry publishing | Completed |
 | Cloud deployment | Completed |
-| Continuous deployment | Not started |
-| Release v1.0.0 | Not started |
+| Continuous deployment | Completed |
+| Post-deployment smoke testing | Completed |
+| Production troubleshooting & rollback | Completed |
+| v1.0.0 release hardening | In Progress |
 
 ## Continuous Integration
 
