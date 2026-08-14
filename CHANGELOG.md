@@ -6,6 +6,8 @@ The project follows Semantic Versioning for release tags.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-08-14
+
 ### Added
 
 - Initial repository structure
@@ -33,14 +35,6 @@ The project follows Semantic Versioning for release tags.
 - Verified no Log Analytics workspace was created.
 - Verified no ACR, standalone public IP, load balancer, NAT gateway, or storage account was introduced.
 - Captured four verified Phase 7 cloud deployment evidence screenshots.
-
-### Planned
-
-- Continuous deployment automation
-- Post-deployment smoke testing
-- Security scanning
-- Rollback documentation
-- Version `v1.0.0` release
 
 ### Documentation
 

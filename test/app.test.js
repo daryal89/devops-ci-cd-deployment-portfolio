@@ -37,7 +37,7 @@ test('GET /version returns version and build information', async () => {
 
   assert.equal(
     response.body.version,
-    process.env.APP_VERSION || '0.1.0'
+    process.env.APP_VERSION || '1.0.0'
   );
 
   assert.equal(
@@ -61,7 +61,7 @@ test('GET /api/status returns operational information', async () => {
 
   assert.equal(
     response.body.version,
-    process.env.APP_VERSION || '0.1.0'
+    process.env.APP_VERSION || '1.0.0'
   );
 
   assert.equal(
